@@ -21,5 +21,5 @@ app.use('/graphql', express_graphql({
 }))
 
 app.listen(4000, () => {
-    console.log('Running on http://localhost:4000')
+    console.log('Running on http://localhost:4000/graphql')
 })
