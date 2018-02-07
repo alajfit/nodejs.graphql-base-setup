@@ -11,6 +11,9 @@ const schema = buildSchema(`
     type Query {
         user: User
     }
+    type Mutation {
+        cleanEmail(email: String!):  User
+    }
     type User {
         gender: String
         name: Name
@@ -55,13 +58,20 @@ const schema = buildSchema(`
     }
 `)
 
+// This is used to get the JSON data for graphql to filter
 const getUser = async () => {
     const user = await request('https://randomuser.me/api/')
     return JSON.parse(user).results[0]
 }
 
+// This could be used to changed the data before it is gathered
+const cleanEmail = ({ id,  email }) => {
+    updateUser(id, email)
+}
+
 const root = {
-    user: getUser
+    user: getUser,
+    cleanEmail
 }
 
 const app = express()
